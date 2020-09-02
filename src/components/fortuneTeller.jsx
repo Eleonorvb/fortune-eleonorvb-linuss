@@ -5,19 +5,19 @@ class FortuneTeller extends Component {
     render() { 
         return ( 
             <div>
-                <br/>
+                
             <form>
-                <div className="form-group">
+                <div className="form-group m-4">
                     <label htmlFor="exampleFormControlInput1">First name:</label>
                     <input type="text" className="form-control" id="exampleFormControlInput1"/>
                 </div>
 
-                <div className="form-group">
+                <div className="form-group m-4">
                     <label htmlFor="exampleFormControlInput2">Last name:</label>
                     <input type="text" className="form-control" id="exampleFormControlInput2"/>
                 </div>
 
-                <div className="form-group">
+                <div className="form-group m-4">
                     <label htmlFor="exampleFormControlSelect1">Starsign:</label>
                     <select className="form-control" id="exampleFormControlSelect1">
                         <option>Aquarius</option>
@@ -35,12 +35,12 @@ class FortuneTeller extends Component {
                     </select>
                 </div>
 
-                <div className="form-group">
+                <div className="form-group m-4">
                     <label htmlFor="exampleFormControlInput2">BirthDate:</label>
                     <input type="text" className="form-control" id="exampleFormControlInput2" placeholder='xxxx-xx-xx'/>
                 </div>
 
-                <input type="submit" value="Tell me my fortune!" />
+                <button className='btn btn-primary btn-sm m-4'>Tell me my fortune!</button>
             </form>
             </div>
          );
