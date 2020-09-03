@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import Fortune from './fortune';
+
 
 class FortuneTeller extends Component {
     state = {  }
@@ -39,9 +41,12 @@ class FortuneTeller extends Component {
                     <label htmlFor="exampleFormControlInput2">BirthDate:</label>
                     <input type="text" className="form-control" id="exampleFormControlInput2" placeholder='xxxx-xx-xx'/>
                 </div>
-
-                <button className='btn btn-primary btn-sm m-4'>Tell me my fortune!</button>
             </form>
+            <Fortune 
+                fortunes={this.props.fortunes}
+                showMessage={this.props.showMessage}
+                onFortunePress={this.props.onFortunePress}
+            />
             </div>
          );
     }
