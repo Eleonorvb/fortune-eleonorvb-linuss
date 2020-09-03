@@ -8,9 +8,12 @@ class FortuneTeller extends Component {
      }
 
      handleChange = (event, fieldName) => {
-        let zodiac = this.props.fortunes
+        let zodiac = this.props.fortunes.filter(c => c.zodiac == event.target.value)
+        this.props.onFortuneHide();
+        this.setState({[fieldName]: zodiac});
      }
 
+     
     render() { 
         return ( 
             <div>
@@ -28,7 +31,7 @@ class FortuneTeller extends Component {
 
                 <div className="form-group m-4">
                     <label htmlFor="exampleFormControlSelect1">Starsign:</label>
-                    <select className="form-control" id="exampleFormControlSelect1" value={this.state.chosenZodiac} onChange={(event) => this.handleChange(event, 'chosenZodiac')}>
+                    <select className="form-control" id="exampleFormControlSelect1" onChange={(event) => this.handleChange(event, 'chosenZodiac')}>
                         <option>Aquarius</option>
                         <option>Aries</option>
                         <option>Capricorn</option>
