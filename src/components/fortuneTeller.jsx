@@ -3,7 +3,14 @@ import Fortune from './fortune';
 
 
 class FortuneTeller extends Component {
-    state = {  }
+    state = { 
+        chosenZodiac: this.props.fortunes[0]
+     }
+
+     handleChange = (event, fieldName) => {
+        let zodiac = this.props.fortunes
+     }
+
     render() { 
         return ( 
             <div>
@@ -21,7 +28,7 @@ class FortuneTeller extends Component {
 
                 <div className="form-group m-4">
                     <label htmlFor="exampleFormControlSelect1">Starsign:</label>
-                    <select className="form-control" id="exampleFormControlSelect1">
+                    <select className="form-control" id="exampleFormControlSelect1" value={this.state.chosenZodiac} onChange={(event) => this.handleChange(event, 'chosenZodiac')}>
                         <option>Aquarius</option>
                         <option>Aries</option>
                         <option>Capricorn</option>
@@ -43,7 +50,7 @@ class FortuneTeller extends Component {
                 </div>
             </form>
             <Fortune 
-                fortunes={this.props.fortunes}
+                chosenZodiac={this.state.chosenZodiac}
                 showMessage={this.props.showMessage}
                 onFortunePress={this.props.onFortunePress}
             />
