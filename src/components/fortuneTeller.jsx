@@ -8,7 +8,9 @@ class FortuneTeller extends Component {
      }
 
      handleChange = (event, fieldName) => {
-        let zodiac = this.props.fortunes.filter(c => c.zodiac == event.target.value)
+        let zodiac = this.props.fortunes.find(c => {
+            return c.zodiac == event.target.value
+        });
         this.props.onFortuneHide();
         this.setState({[fieldName]: zodiac});
      }
