@@ -18,7 +18,7 @@ pipeline{
                             allowMissing: false, 
                             alwaysLinkToLastBuild: false, 
                             keepAll: false, 
-                            reportDir: 'coverage\lcov-report', 
+                            reportDir: 'coverage/lcov-report', 
                             reportFiles: 'index.html', 
                             reportName: 'Test coverage', 
                             reportTitles: 'Test coverage'
