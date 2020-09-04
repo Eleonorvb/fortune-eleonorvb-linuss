@@ -1,0 +1,43 @@
+pipeline{
+ 
+    stages{
+            stage('Build application, run tests and publish test results'){
+                agent {
+        docker{ image 'node:latest'}
+                }
+        
+                steps{
+                    sh 'npm install'
+                }
+                
+                post{
+                    always {
+                      
+                   
+                        publishHTML([
+                            allowMissing: false, 
+                            alwaysLinkToLastBuild: false, 
+                            keepAll: false, 
+                            reportDir: 'coverage\lcov-report', 
+                            reportFiles: 'index.html', 
+                            reportName: 'Test coverage', 
+                            reportTitles: 'Test coverage'
+                            ])
+                    }
+               
+
+                }
+              
+            }
+          stage('Test') { 
+            steps {
+                sh './jenkins/scripts/test.sh' 
+            }
+            }
+            
+
+         
+            
+        }
+
+}
