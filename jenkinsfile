@@ -2,9 +2,6 @@ pipeline{
   agent {
     docker{ image 'node:latest'}
   }
-  parameters{
-        choice(name: 'DEPLOY_ENV', choices: ['int', 'stage', 'test', 'prod'], description:'Target environment')
-  }
   environment {
         CI = 'true' 
   }
