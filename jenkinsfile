@@ -15,7 +15,7 @@ pipeline{
             sh "npm install"
             }
     }
-}
+
         
           post{
             always {
@@ -30,7 +30,8 @@ pipeline{
               ])
             }
          }
-      }         
+      }  
+      }
   }
 }
 
