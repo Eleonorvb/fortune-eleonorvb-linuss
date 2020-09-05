@@ -4,6 +4,7 @@ pipeline{
     
       stage('Build application & test'){
         steps{
+        sh 'nvm use'
         sh 'npm install'
         }
         
