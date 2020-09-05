@@ -3,18 +3,27 @@ pipeline{
     docker{ image 'node:latest'}
   }
     stages{
-      stage('Build application'){
+    
+      stage('Build application & test'){
         steps{
         sh 'npm install'
         }
+        
+          post{
+            always {
+              publishHTML([
+              allowMissing: false, 
+              alwaysLinkToLastBuild: false, 
+              keepAll: false, 
+              reportDir: 'coverage/lcov-report', 
+              reportFiles: 'index.html', 
+              reportName: 'Test coverage', 
+              reportTitles: 'Test coverage'
+              ])
+            }
+         }
       }
-                
-      stage('Test') {
-        steps {
-          sh 'npm test'
-        }
-      }
-                
+      
       stage('Deploy') {
         steps {
           sh 'npm start'
