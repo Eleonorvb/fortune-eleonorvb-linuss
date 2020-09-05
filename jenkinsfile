@@ -4,18 +4,12 @@ pipeline{
   }
     stages{
     
-      stage("Build application & test"){
-     
-        steps {
-        script{
-        echo "Branch is ${BRANCH_NAME}..."
-
-        withNPM(npmrcConfig:'my-custom-npmrc') {
-            echo "Performing npm build..."
-            sh "npm install"
-            }
-    }
-}
+      stage('Build application & test'){
+        steps{
+        sh'ls'
+        sh '. ~/.nvm/nvm.sh use'
+        sh 'npm install'
+        }
         
           post{
             always {
@@ -30,8 +24,7 @@ pipeline{
               ])
             }
          }
-      }  
-      
+      }         
   }
 }
 
