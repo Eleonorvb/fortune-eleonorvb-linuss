@@ -1,20 +1,21 @@
 pipeline{
-agent any
+  agent {
+    docker{ image 'node:latest'}
+  }
   parameters{
         choice(name: 'DEPLOY_ENV', choices: ['int', 'stage', 'test', 'prod'], description:'Target environment')
-    }
+  }
+  environment {
+        CI = 'true' 
+  }
     stages{
             stage('Build application, run tests and publish test results'){
-                agent {
-        docker{ image 'node:latest'}
-                }
-        
+               
                 steps{
                     sh 'npm install'
+                    sh './jenkins/scripts/test.sh'
                 }
-                               
-                             
-                
+                              
                 post{
                     always {
                       
@@ -29,16 +30,14 @@ agent any
                             reportTitles: 'Test coverage'
                             ])
                     }
-               
-
                 }
-                
-                
-              
-            }
-       
-           
-            
+                stage('Deliver') {
+                  steps {
+                    sh './jenkins/scripts/deliver.sh'
+                    input message: 'Finished using the web site? (Click "Proceed" to continue)'
+                    sh './jenkins/scripts/kill.sh'
+                  }
+                }
+            } 
         }
-
 }
