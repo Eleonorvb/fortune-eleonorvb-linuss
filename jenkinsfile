@@ -2,39 +2,27 @@ pipeline{
   agent {
     docker{ image 'node:latest'}
   }
-  environment {
-        CI = 'true' 
-  }
     stages{
-            stage('Build application, run tests and publish test results'){
-               
-                steps{
-                    sh 'npm install'
-                    sh './jenkins/scripts/test.sh'
-                }
-                              
-                post{
-                    always {
-                      
-                   
-                        publishHTML([
-                            allowMissing: false, 
-                            alwaysLinkToLastBuild: false, 
-                            keepAll: false, 
-                            reportDir: 'coverage/lcov-report', 
-                            reportFiles: 'index.html', 
-                            reportName: 'Test coverage', 
-                            reportTitles: 'Test coverage'
-                            ])
-                    }
-                }
-                stage('Deliver') {
-                  steps {
-                    sh './jenkins/scripts/deliver.sh'
-                    input message: 'Finished using the web site? (Click "Proceed" to continue)'
-                    sh './jenkins/scripts/kill.sh'
-                  }
-                }
-            } 
+      stage('Build application'){
+        steps{
+        sh 'npm install'
+        sh './jenkins/scripts/test.sh'
         }
+      }
+                
+      stage('Test') {
+        steps {
+          sh 'node test'
+        }
+      }
+                
+      stage('Deliver') {
+        steps {
+          sh './jenkins/scripts/deliver.sh'
+          input message: 'Finished using the web site? (Click "Proceed" to continue)'
+          sh './jenkins/scripts/kill.sh'
+        }
+      }          
+    } 
+  }
 }
