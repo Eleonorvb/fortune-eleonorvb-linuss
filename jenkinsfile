@@ -6,8 +6,8 @@ pipeline{
     
       stage('Build application & test'){
         steps{
-        sh'ls'
-        sh '. ~/.nvm/nvm.sh use'
+      
+        sh '. $NVM_DIR/nvm.sh use'
         sh 'npm install'
         }
         
