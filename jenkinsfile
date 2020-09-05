@@ -1,23 +1,32 @@
-pipeline {
-    agent {
-        docker {
-            image 'node:6-alpine'
-            args '-p 3000:3000'
+pipeline{
+  agent {
+    docker{ image 'node:latest'}
+  }
+    stages{
+    
+      stage('Build application & test'){
+        steps {
+        echo "Branch is ${env.BRANCH_NAME}..."
+
+        withNPM(npmrcConfig:'my-custom-npmrc') {
+            echo "Performing npm build..."
+            sh 'npm install'
         }
     }
-    environment {
-        CI = 'true' 
-    }
-    stages {
-        stage('Build') {
-            steps {
-                sh 'npm install'
+        
+          post{
+            always {
+              publishHTML([
+              allowMissing: false, 
+              alwaysLinkToLastBuild: false, 
+              keepAll: false, 
+              reportDir: 'coverage/lcov-report', 
+              reportFiles: 'index.html', 
+              reportName: 'Test coverage', 
+              reportTitles: 'Test coverage'
+              ])
             }
-        }
-        stage('Test') { 
-            steps {
-                sh './jenkins/scripts/test.sh' 
-            }
-        }
-    }
+         }
+      }         
+  }
 }
