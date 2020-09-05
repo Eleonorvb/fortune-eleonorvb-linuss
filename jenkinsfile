@@ -7,8 +7,6 @@ pipeline{
       stage('Build application & test'){
         steps{
         sh '. ~/.nvm/nvm.sh -v'
-        sh '. ~/.profile'
-        sh '. ~/.bashrc'
         sh 'npm install'
         }
         
