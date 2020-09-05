@@ -1,51 +1,23 @@
-pipeline{
-agent any
- 
-    stages{
-            stage('Build application, run tests and publish test results'){
-                agent {
-        docker{ image 'node:latest'}
-                }
-          environment {
+pipeline {
+    agent {
+        docker {
+            image 'node:6-alpine'
+            args '-p 3000:3000'
+        }
+    }
+    environment {
         CI = 'true' 
     }
-       stages {
+    stages {
         stage('Build') {
             steps {
                 sh 'npm install'
             }
         }
-                stage('Test') { 
+        stage('Test') { 
             steps {
                 sh './jenkins/scripts/test.sh' 
             }
         }
-                post{
-                    always {
-                      
-                   
-                        publishHTML([
-                            allowMissing: false, 
-                            alwaysLinkToLastBuild: false, 
-                            keepAll: false, 
-                            reportDir: 'coverage/lcov-report', 
-                            reportFiles: 'index.html', 
-                            reportName: 'Test coverage', 
-                            reportTitles: 'Test coverage'
-                            ])
-                    }
-               
-
-                }
-              
-            }
-       
-            
-            
-
-         
-            
-        }
-
-}
+    }
 }
