@@ -26,7 +26,7 @@ pipeline{
       
       stage('Deploy') {
         steps {
-          sh 'npm start'
+          sh 'asadmin --port 4848 deploy --force --name Eleonorvb/fortune-eleonorvb-linuss-${DEPLOY_ENV} --contextroot Eleonorvb/fortune-eleonorvb-linuss-${DEPLOY_ENV} jenkinsdeploy'
         }
       }          
   }
