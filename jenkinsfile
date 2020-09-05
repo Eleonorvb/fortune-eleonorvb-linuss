@@ -5,8 +5,9 @@ pipeline{
     stages{
     
       stage("Build application & test"){
-      script{
+     
         steps {
+        script{
         echo "Branch is ${env.BRANCH_NAME}..."
 
         withNPM(npmrcConfig:'my-custom-npmrc') {
